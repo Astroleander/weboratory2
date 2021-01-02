@@ -1,0 +1,11 @@
+# Dependency directories
+node_modules/
+
+# Build directories
+dist/
+
+# VS code configuration
+.vscode/
+
+# gitconfig
+.gitconfig

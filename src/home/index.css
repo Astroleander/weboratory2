@@ -1,0 +1,20 @@
+#root {
+  display: grid;
+  width: 100%;
+  grid-gap: 16px;
+  padding: 16px;
+}
+
+#root { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1280px) { #root { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { #root { grid-template-columns: repeat(1, 1fr); } }
+
+.fragment-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  height: 30vh;
+  border-radius: 2px;
+  box-shadow: 2px 2px 10px #EEE;
+}

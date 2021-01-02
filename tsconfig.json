@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "outDir": "./dist",
+    "target": "ES2015",
+    "module": "ES2020",
+    "jsx": "react",
+    "strict": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "src/**/*",
+    "externals.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
