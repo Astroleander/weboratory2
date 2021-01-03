@@ -1,9 +1,10 @@
 import * as Loader from './loader';
-import { loadDir } from '@/common/utils/folder_loader';
+import dir from '../router';
 /**
  * card - contained, independent, individual
- * | - material card @see https://material.io/components/cards
- * 
+ * [ 🎨 ] material card @see https://material.io/components/cards
+ *   | - media
+ *   | - title 
  */
 export const card: (tag: string) => HTMLAnchorElement = (tag) => {
   const card = document.createElement('a');
@@ -17,6 +18,10 @@ export const card: (tag: string) => HTMLAnchorElement = (tag) => {
   return card;
 }
 
+/**
+ * @description [ react component ] [ card ] media
+ * @param tag card tag, for loading fragment 
+ */
 export const media = (tag) => {
   const container = document.createElement('div');
   container.classList.add('media');
@@ -25,21 +30,23 @@ export const media = (tag) => {
   return container;
 }
 
+/**
+ * @description [ react component ] [ card ] title
+ * @param tag 
+ */
 export const title = (tag) => {
   const container = document.createElement('div');
   container.classList.add('title');
   return container;
 }
 
-/**
- * @param tag 
- */
+
 function tryLoadFragment(container:HTMLDivElement ,tag:string) {
   /** tag (nav title) -> fragment name */
   let fragment_name = tag.replace(/(lab-)(.*)/, (_, lab, name) => `fragmentLab${name.charAt(0).toUpperCase() + name.slice(1)}`)
   
   /** fragment name -> file name */
-  const file_name = loadDir.home.find(str => str.includes(fragment_name));
+  const file_name = dir.find(str => str.includes(fragment_name));
   
   /** try to get loader */
   const loader = Loader.selectedLoader(file_name);

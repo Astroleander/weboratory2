@@ -55,6 +55,11 @@ const loaderMapping:Array<LoaderRule> = [
   { rule: /\.html$/,     loader: htmlLoader},
 ];
 
+/**
+ * @description [ function ] select loader by file_name suffix
+ * @param file_name
+ * @returns loader: Function
+ */
 export const selectedLoader = (file_name) => {
   const result = loaderMapping.find(each => each.rule.test(file_name));
   return result;
