@@ -11,6 +11,9 @@ const { VueLoaderPlugin } = require("vue-loader");
 const { DefinePlugin } = require("webpack");
 
 /** all entries needs to be recorded */
+entry.dependencies = {
+  'react-vendors': ['react', 'react-dom'],
+}
 entry.entriesList = {
   'lab-graphics': entry.entryFactory('lab-graphics', 'react-vendors'),
   'lab-scenario': entry.entryFactory('lab-scenario', 'react-vendors'),
@@ -24,7 +27,8 @@ module.exports = {
   target: 'web',
   entry: {
     ...entry.entriesList,
-    'react-vendors': ['react', 'react-dom'],
+    ...entry.dependencies,
+    /** 👇 injected in webpackHTMLplugin */
     'configs': ['./configs/weboratory.common.js'],
   },
   output: {
