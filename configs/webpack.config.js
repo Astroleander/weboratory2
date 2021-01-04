@@ -17,7 +17,7 @@ entry.dependencies = {
 entry.entriesList = {
   'lab-graphics': entry.entryFactory('lab-graphics', 'react-vendors'),
   'lab-scenario': entry.entryFactory('lab-scenario', 'react-vendors'),
-  'lab-framework': entry.entryFactory('lab-game', 'react-vendors'),
+  'lab-game': entry.entryFactory('lab-game', 'react-vendors'),
   'lab-framework': entry.entryFactory('lab-framework'),
   home: entry.entryFactory('home', 'react-vendors'),
 }
@@ -38,7 +38,7 @@ module.exports = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.vue'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.vue'],
     alias: alias.aliasFactory(context),
     modules: [path.join(context, 'src'), 'node_modules']
   },
@@ -55,6 +55,7 @@ module.exports = {
   ],
   module: {
     rules: [
+      { test: /\.jsx?$/,  use: 'babel-loader' },
       { test: /\.tsx?$/,  exclude: ['/node-modules/'], 
                           use: "ts-loader",  },
       { test: /\.vue$/,   use: "vue-loader",  },
