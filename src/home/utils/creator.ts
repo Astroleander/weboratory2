@@ -1,5 +1,5 @@
 import * as Loader from './loader';
-import dir from '../router';
+import { directory } from '../router';
 /**
  * card - contained, independent, individual
  * [ 🎨 ] material card @see https://material.io/components/cards
@@ -10,7 +10,7 @@ export const card: (tag: string) => HTMLAnchorElement = (tag) => {
   const card = document.createElement('a');
   card.id = `${tag}-card`;
   card.className = 'fragment-card';
-  card.href = tag === 'home' ? '' : tag;
+  card.href = `${tag === 'home' ? '' : tag}/`;
   card.innerHTML = tag;
 
   card.append(media(tag));
@@ -46,7 +46,7 @@ function tryLoadFragment(container:HTMLDivElement ,tag:string) {
   let fragment_name = tag.replace(/(lab-)(.*)/, (_, lab, name) => `fragmentLab${name.charAt(0).toUpperCase() + name.slice(1)}`)
   
   /** fragment name -> file name */
-  const file_name = dir.find(str => str.includes(fragment_name));
+  const file_name = directory.home.find(str => str.includes(fragment_name));
   
   /** try to get loader */
   const loader = Loader.selectedLoader(file_name);
