@@ -12,6 +12,7 @@ const NavLayout:React.FC<{
   routes: Routes[]
   with_react_router_dom: boolean
 }> = ({ routes, with_react_router_dom = false }) => {
+
   if (!routes || !routes.length) return <ExceptionNoMatchRoutes />
 
   if (with_react_router_dom) {
@@ -29,8 +30,6 @@ const NaiveRoutes:React.FC<{
 const ReactRouterDOMRoutes:React.FC<{
   routes: Routes[]
 }> = ({ routes }) => {
-  console.log(routes)
-
   return (<>
     {
       routes.map(({ name, path }, idx) => {
