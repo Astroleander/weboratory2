@@ -3,7 +3,7 @@ import React from 'react';
 const View = () => {
   return (
     <div>
-      
+      Galaxy Explorer
     </div>
   );
 }
