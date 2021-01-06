@@ -5,9 +5,12 @@ import ViewLayout from '@/common/layouts/ViewLayout';
 import NavLayout from '@/common/layouts/NavLayout';
 
 import { routes } from './router'
+import OverlaysLayout from '@/common/layouts/OverlaysLayout';
 
 const Container = (props) => {
   return (
+    <>
+    <OverlaysLayout />
     <HashRouter>
       <Switch>
         <Route
@@ -20,6 +23,7 @@ const Container = (props) => {
         />
       </Switch>
     </HashRouter>
+    </>
   );
 }
 
