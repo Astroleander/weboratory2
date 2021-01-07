@@ -1,17 +1,17 @@
 import React, { useLayoutEffect, useState } from 'react';
 
 const useLazyComponent = (location) => {
-  const [component, setComponent] = useState<React.FC|null>(null);
+  const [component, setComponent] = useState<(() => React.ReactElement) | null>(null);
   useLayoutEffect(() => {
-    import(`@/${location.pathname.substring(1)}${location.hash.substring(2)}`).then(m => {
+    import(`@/${location.pathname.substring(1)}${location.hash.split('#')[1]}`).then(m => {
       setComponent(m.default);
     })
   }, [])
-  return component;
+  return [ component ] as const;
 }
 
-const ViewLayout = () => {
-  const Component = useLazyComponent(location);
+const ViewLayout: any = () => {
+  const [ Component ] = useLazyComponent(location);
   if (Component) return Component;
   else return <div>loading...</div>;
 }

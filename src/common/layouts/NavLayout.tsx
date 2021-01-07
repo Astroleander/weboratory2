@@ -3,14 +3,14 @@ import ExceptionNoMatchRoutes from '../components/error/ExceptionNoMatchRoutes';
 
 import { Link } from 'react-router-dom';
 
-interface Routes {
+export interface Routes {
   name: string,
   path: string,
 }
 
 const NavLayout:React.FC<{
   routes: Routes[]
-  with_react_router_dom: boolean
+  with_react_router_dom?: boolean
 }> = ({ routes, with_react_router_dom = false }) => {
 
   if (!routes || !routes.length) return <ExceptionNoMatchRoutes />
@@ -21,10 +21,21 @@ const NavLayout:React.FC<{
   return <NaiveRoutes routes={routes} />
 }
 
+const go = (url) => {
+  window.location.hash = url
+}
 const NaiveRoutes:React.FC<{
   routes: Routes[]
 }> = ({ routes }) => {
-  return null;
+  return (<>
+    {
+      routes.map(({ name, path }, idx) => {
+        return (
+          <li onClick={() => go(path)} key={path}>{name}</li>
+        );
+      })
+    }
+    </>);
 }
 
 const ReactRouterDOMRoutes:React.FC<{
