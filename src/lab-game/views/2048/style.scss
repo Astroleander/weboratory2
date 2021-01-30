@@ -1,0 +1,51 @@
+$tile_size: 100px;
+$tile_margin: 5px;
+
+.tile {
+  display: inline-block;
+  height: $tile_size;
+  width: $tile_size;
+  background: #FB7;
+  font-family: "Clear Sans";
+  color: white;
+  text-align: center;
+  vertical-align: bottom;
+  font-weight: bold;
+  line-height: $tile_size - 10px;
+  border-radius: 2px;
+  margin: $tile_margin;
+}
+
+.tile-0 {
+  font-size: 0px;
+  background: #eee;
+}
+
+@keyframes scale-tile {
+  0% { transform: scale(0);}
+  100% { transform: scale(1);}
+}
+
+@for $i from 1 through 14 {
+  $res: 1;
+  @while $i > 0 {
+    $res: $res * 2;
+    $i: $i - 1;
+  }
+  @if $res < 128 { .tile-#{$res} { font-size: 55px; }}
+  @else if $res < 1024 { .tile-#{$res} { font-size: 45px; background: rgb(255, 180 - ($res/128)* 20, 28) }}
+  @else if $res < 16384 {.tile-#{$res} { font-size: 35px; background: rgb(195 - ($res/1024) * 30, 100 - ($res/1024) * 15, 100 - ($res/1024) * 15)}}
+  @else { .tile-#{$res} { font-size: 30px; background: #776}}
+}
+.tile-2 {
+  animation: scale-tile;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation-fill-mode: forwards;
+  background: #1e88e5;
+}
+.tile-4 { background: #0097a7;}
+.tile-8 { background: #00bcd4;}
+.tile-16 { background: #43a047;}
+.tile-32 { background: #c0ca33;}
+.tile-64 { background: #ffb300;}
