@@ -21,21 +21,13 @@ const BoardView = () => {
   useEffect(() => {
   }, [ board ])
 
-  const printBoard = (board) => {
-    let ret: any[][] = []
-    for (let i = 0; i < board.size; i++) {
-      ret.push(board.tiles[i].map(e => e.value))
-    }
-    return <>{ret.map(e=>e.map(t=>t))}</>
-  }
-
   const size = board.size;
   return (
     <>
     <div className={cls('board')}>
       {
       board.tiles.map((col,c_idx) => (
-        <div key={c_idx}>
+        <div className={cls('row')} key={c_idx}>
           {
             col.map((tile,r_idx) => {
               return <Tile key={`${r_idx}-${c_idx}`} value={tile.value} />;
@@ -43,9 +35,6 @@ const BoardView = () => {
           }
         </div>))
       }
-    </div>
-    <div>
-      {printBoard(board)}
     </div>
     </>
   );

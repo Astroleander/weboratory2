@@ -1,6 +1,13 @@
 $tile_size: 100px;
 $tile_margin: 5px;
 
+.board {
+  overflow: hidden;
+  .row {
+    white-space: nowrap;
+  }
+}
+
 .tile {
   display: inline-block;
   height: $tile_size;
