@@ -57,8 +57,8 @@ module.exports = {
     rules: [
       { test: /\.jsx?$/,  use: 'babel-loader' },
       { test: /\.tsx?$/,  exclude: ['/node-modules/'], 
-                          use: "ts-loader",  },
-      { test: /\.vue$/,   use: "vue-loader",  },
+                          use: "ts-loader", },
+      { test: /\.vue$/,   use: "vue-loader", },
       { test: /\.html$/,  exclude: /template\.html$/, 
                           use: { loader: "html-loader", options: { minimize: false }, }, },
       { test: /\.css$/,
@@ -68,6 +68,15 @@ module.exports = {
             options: { 
               modules: { auto: true, localIdentName: '[local]-[contenthash:12]' } 
             }, },
+        ], },
+      { test: /\.s[c|a]ss$/,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          { loader: "css-loader", 
+            options: { 
+              modules: { auto: true, localIdentName: '[local]-[contenthash:12]' } 
+            }, },
+          { loader: "sass-loader" },
         ], },
     ]
   }
