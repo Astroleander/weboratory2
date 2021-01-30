@@ -21,7 +21,6 @@ const useBoard:(row:number, col:number) => [ any ] = (row, col) => {
   return [ new Proxy(board, {
     set(target, prop, r) {
       if (prop === 'count') {
-        console.log('=======================================')
         dispatch('moved');
       } 
       return Reflect.set(target, prop, r);
@@ -35,6 +34,7 @@ class Board {
   lose: boolean;
   count: number = 0;
   canMove: boolean = true;
+  hasMoved: boolean = true;
 
   constructor (csize = 4, rsize = 0) {
     /** 注意，你想要一个 7 x 5 的游戏格子的话, 实际上是 a[5][7] 的数组 */
@@ -58,6 +58,9 @@ class Board {
    * 
    */
   addRandomTile() {
+    if (!this.hasMoved) {
+      return;
+    }
     const available:{row: number, col: number}[] = [];
     for (let i = 0; i < this.size.col; i++) {
       for (let j = 0; j < this.size.row; j++) {
@@ -71,6 +74,7 @@ class Board {
     const { row, col } = available[random_index];
     const new_value = Math.random() > FOUR_PROBABILTY ? 2 : 4;
     this.updateTile(row, col, new_value);
+    this.hasMoved = false;
   }
 
   updateTile(row, col, value) {
@@ -223,11 +227,13 @@ class Board {
   shiftInto(target, source) {
     target.value = source.value;
     this.clearTile(source.row, source.col);
+    this.hasMoved = true;
   }
 
   mergeInto(target, source) {
     target.value *= 2;
     this.clearTile(source.row, source.col);
+    this.hasMoved = true;
   }
 
   clearTile(row, col) {
