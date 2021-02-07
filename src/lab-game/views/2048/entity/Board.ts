@@ -1,13 +1,15 @@
-import Tile from './Tile';
+import Tile, { NIL, TYPE } from './Tile';
 import { useReducer, useEffect } from 'react';
 
 const FOUR_PROBABILTY = 0.2;
+let debounce:any = null;
 
 const init = (row, col) => new Board(col, row);
 
-const reducer = (state, action) => {
-  if (action === 'moved') {
-    state = { ...state }
+const reducer = (state, { type, obj }) => {
+  if (type === 'moved') {
+    state = { ...obj }
+    Object.setPrototypeOf(state, Board.prototype)
   }
   return state;
 }
@@ -15,26 +17,27 @@ const reducer = (state, action) => {
 const useBoard:(row:number, col:number) => [ any ] = (row, col) => {
   const [board, dispatch] = useReducer(reducer, {}, () => init(row, col));
   useEffect(() => {
-    // printBoard(board)
   }, [board]);
 
   return [ new Proxy(board, {
-    set(target, prop, r) {
-      if (prop === 'count') {
-        dispatch('moved');
-      } 
-      return Reflect.set(target, prop, r);
+    get(target, prop, r) {
+      if (prop === 'update') {
+        dispatch({type: 'moved', obj: target});
+      }
+      return Reflect.get(target, prop, r);
     },
   }) ];
 }
 
 class Board {
   size: { row:number, col:number };
-  tiles: Tile[][];
-  lose: boolean;
+  tiles: Tile[][] = [];
+  lose: boolean = false;
   count: number = 0;
   canMove: boolean = true;
   hasMoved: boolean = true;
+  score: number = 0;
+  update: Function = ()=>{};
 
   constructor (csize = 4, rsize = 0) {
     /** 注意，你想要一个 7 x 5 的游戏格子的话, 实际上是 a[5][7] 的数组 */
@@ -43,6 +46,15 @@ class Board {
     } else {
       this.size = { row:csize, col:csize };
     }
+    this.init();
+  }
+
+  init() {
+    this.lose = false;
+    this.count = 0;
+    this.canMove = true;
+    this.hasMoved = true;
+    this.score = 0;
     this.tiles = [];
     for (let i = 0; i < this.size.col; i++) {
       if (!this.tiles[i]) { this.tiles[i] = Array(4); }
@@ -50,7 +62,6 @@ class Board {
         this.tiles[i][j] = new Tile(i, j);
       }
     };
-    this.lose = false;
     this.addRandomTile();
   }
 
@@ -73,17 +84,30 @@ class Board {
     const random_index = ~~(Math.random() * available.length);
     const { row, col } = available[random_index];
     const new_value = Math.random() > FOUR_PROBABILTY ? 2 : 4;
-    this.updateTile(row, col, new_value);
+    this.updateTile({ row, col, value: new_value });
     this.hasMoved = false;
   }
 
-  updateTile(row, col, value) {
+  updateTile({
+    row,
+    col,
+    value,
+    origin_row = NIL,
+    origin_col = NIL,
+  }:{ row:number,col:number,value:number,origin_row?: number,origin_col?:number }) {
     const tile = this.tiles[row][col];
     tile.value = value;
+    /** for animation */
+    tile.origin_row = origin_row;
+    tile.origin_col = origin_col;
+  }
+
+  reset() {
+    this.init();
+    this.update();
   }
 
   move(direction) {
-    console.log(direction)
     if (!this.canMove) return;
     new Promise<void>((res, rej) => {
       this.canMove = false;
@@ -103,11 +127,36 @@ class Board {
         default:
           break;
       }
-      this.checkLose();
+      if (this.hasMoved) { this.count++; }
       this.addRandomTile();
-      this.count++;
       res();
-    }).then(() => this.canMove = true);
+    }).then(()=>{
+      this.lose = this.hasLose();
+      return !this.lose;
+    }).then(()=>{
+      this.canMove = true;
+    }).finally(()=>{
+      this.update();
+      this.clearType();
+    });
+  }
+
+  _clearType() {
+    for (let i = 0; i < this.size.col; i++) {
+      for (let j = 0; j < this.size.row; j++) {
+        this.tiles[i][j].type = TYPE.NL;
+      }
+    }
+    this.update();
+  }
+
+  clearType() {
+    if (!debounce) {
+      debounce = setTimeout(()=>this._clearType(), 200);
+    } else {
+      clearTimeout(debounce);
+      debounce = setTimeout(()=>this._clearType(), 200);
+    }
   }
 
   moveLeft() {
@@ -226,25 +275,50 @@ class Board {
 
   shiftInto(target, source) {
     target.value = source.value;
+
+    target.origin_row = source.row;
+    target.origin_col = source.col;
+    target.type = TYPE.MV;
+
     this.clearTile(source.row, source.col);
     this.hasMoved = true;
   }
 
   mergeInto(target, source) {
     target.value *= 2;
+    this.score += target.value
+
+    target.origin_row = target.row;
+    target.origin_col = target.col;
+    target.type = TYPE.MG;
+
     this.clearTile(source.row, source.col);
     this.hasMoved = true;
   }
 
   clearTile(row, col) {
-    this.updateTile(row, col, 0);
+    this.updateTile({row, col, value:0, origin_row:NIL, origin_col: NIL});
   }
 
   /**
    * 
    */
-  checkLose() {
+  hasLose() {
+    let result:boolean = true;
+    const reject = (x) => result = false;
+    outter: for (let i = 0; i < this.size.col; i++) {
+      for (let j = 0; j < this.size.row; j++) {
+        if (!result) break outter;
+        let val = this.tiles[i][j].value;
+        (val === 0) && reject('has empty');
 
+        this.tiles[i-1] && (this.tiles[i-1][j]?.value === 0 || this.tiles[i-1][j]?.value === val) && reject('left');
+        this.tiles[i+1] && (this.tiles[i+1][j]?.value === 0 || this.tiles[i+1][j]?.value === val) && reject('right');
+        (this.tiles[i][j+1]?.value === 0 || this.tiles[i][j+1]?.value === val) && reject('up');
+        (this.tiles[i][j-1]?.value === 0 || this.tiles[i][j-1]?.value === val) && reject('down');
+      }
+    }
+    return result;
   }
 }
 
