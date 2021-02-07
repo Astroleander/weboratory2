@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Tile from './tile_view';
 import Board, { useBoard } from './entity/Board';
 import './style.scss';
@@ -17,7 +17,6 @@ const BoardView = () => {
     addOnUp(()      =>    board.move('up'));
     addOnDown(()    =>    board.move('down'));
   }, []);
-  let reset;
   /** board */
   useEffect(() => {
     if (board.lose && board.score > highScore) {
@@ -30,7 +29,7 @@ const BoardView = () => {
       <Score v={ board.score } t={'High Score'}/>
       <Count v={ board.count }/>
       <Score v={ board.score > highScore ? board.score : highScore }/>
-      <button onClick={() => board.reset()}>reset</button>
+      <button onClick={() => { board.reset();}}>reset</button>
       <div className='text hint'>{board.lose?'you lose':''}</div>
     </div>
     <div className={cls('board')}>

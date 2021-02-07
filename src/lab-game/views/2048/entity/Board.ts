@@ -4,25 +4,27 @@ import { useReducer, useEffect } from 'react';
 const FOUR_PROBABILTY = 0.2;
 let debounce:any = null;
 
-const init = (row, col) => new Board(col, row);
-
 const reducer = (state, { type, obj }) => {
   if (type === 'moved') {
     state = { ...obj }
+  } else if (type === 'reset') {
     Object.setPrototypeOf(state, Board.prototype)
+    state.init();
+    state = { ...obj }
   }
   return state;
 }
 
 const useBoard:(row:number, col:number) => [ any ] = (row, col) => {
-  const [board, dispatch] = useReducer(reducer, {}, () => init(row, col));
+  const [board, dispatch] = useReducer(reducer, new Board(col, row));
   useEffect(() => {
   }, [board]);
-
   return [ new Proxy(board, {
     get(target, prop, r) {
       if (prop === 'update') {
         dispatch({type: 'moved', obj: target});
+      } else if (prop === 'reset') {
+        dispatch({type: 'reset', obj: target});
       }
       return Reflect.get(target, prop, r);
     },
@@ -38,6 +40,10 @@ class Board {
   hasMoved: boolean = true;
   score: number = 0;
   update: Function = ()=>{};
+  reset: Function = () => {
+    this.init();
+    this.addRandomTile();
+  };
 
   constructor (csize = 4, rsize = 0) {
     /** 注意，你想要一个 7 x 5 的游戏格子的话, 实际上是 a[5][7] 的数组 */
@@ -47,6 +53,7 @@ class Board {
       this.size = { row:csize, col:csize };
     }
     this.init();
+    this.addRandomTile();
   }
 
   init() {
@@ -62,7 +69,7 @@ class Board {
         this.tiles[i][j] = new Tile(i, j);
       }
     };
-    this.addRandomTile();
+    return this;
   }
 
   /**
@@ -100,11 +107,6 @@ class Board {
     /** for animation */
     tile.origin_row = origin_row;
     tile.origin_col = origin_col;
-  }
-
-  reset() {
-    this.init();
-    this.update();
   }
 
   move(direction) {
