@@ -10,6 +10,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
 const { DefinePlugin } = require("webpack");
 
+const { standardCssLoader } = require("./webpack/config.loader");
+
 /** all entries needs to be recorded */
 entry.dependencies = {
   'react-vendors': ['react', 'react-dom'],
@@ -62,21 +64,17 @@ module.exports = {
       { test: /\.html$/,  exclude: /template\.html$/, 
                           use: { loader: "html-loader", options: { minimize: false }, }, },
       { test: /\.css$/,
-        use: [
-          { loader: MiniCssExtractPlugin.loader },
-          { loader: "css-loader", 
-            options: { 
-              modules: { auto: true, localIdentName: '[local]-[contenthash:12]' } 
-            }, },
-        ], },
+        use: standardCssLoader, },
       { test: /\.s[c|a]ss$/,
         use: [
-          { loader: MiniCssExtractPlugin.loader },
-          { loader: "css-loader", 
-            options: { 
-              modules: { auto: true, localIdentName: '[local]-[contenthash:12]' } 
-            }, },
+          ...standardCssLoader,
           { loader: "sass-loader" },
+        ],
+      },
+      { test: /\.less$/,
+        use: [
+          ...standardCssLoader,
+          { loader: "less-loader" },
         ], },
     ]
   }

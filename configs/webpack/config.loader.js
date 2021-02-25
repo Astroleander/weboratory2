@@ -1,3 +1,5 @@
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const standardCssLoader = [
   { loader: MiniCssExtractPlugin.loader },
   {
