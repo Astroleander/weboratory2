@@ -5,6 +5,8 @@ import NavLayout from '@/common/layouts/NavLayout';
 
 import { routes } from './router'
 
+import cls from 'classnames'
+
 export default function () {
   const [ route ] = useHashRouter();
   return <Router route={route} />
@@ -14,5 +16,5 @@ const Router = ({ route }) => {
   if (route !== '') {
     return <ViewLayout />;
   }
-  return <NavLayout routes={routes}/>;
+  return <NavLayout routes={routes} className={cls('game')}/>;
 }

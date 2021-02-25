@@ -1,0 +1,22 @@
+.router-list {
+  li { 
+    &, & a {
+      font-size: 1.65rem;
+      text-decoration-line: none;
+      text-transform: capitalize;
+      :visited {
+        color: inherit;
+      }
+    }
+    cursor: pointer;
+    list-style: none;
+    padding-left: 8px;
+    margin: 1px 2px;
+    border-left: 4px solid #666666;
+    transition: all 0.1s ease;
+    &:hover {
+      border-left: 6px solid #212121; /** default border */
+      background-color: #EAEAEA;
+    }
+  }
+}
