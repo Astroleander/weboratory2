@@ -3,7 +3,7 @@ import { useHashRouter } from '@/common/hook/useRouter';
 import ViewLayout from '@/common/layouts/ViewLayout';
 import NavLayout from '@/common/layouts/NavLayout';
 
-import { routes } from './router'
+import { routes } from './routes'
 
 import cls from 'classnames'
 

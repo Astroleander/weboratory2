@@ -1,5 +1,5 @@
 import * as Loader from './loader';
-import { directory } from '../router';
+import { directory } from '../routes';
 /**
  * card - contained, independent, individual
  * [ 🎨 ] material card @see https://material.io/components/cards
