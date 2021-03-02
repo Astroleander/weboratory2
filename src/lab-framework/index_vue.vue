@@ -1,17 +1,25 @@
 <template>
   <div>
     <h1>Vue Section</h1>
+    <NavLayout :routes="vue_routes"> </NavLayout>
   </div>
 </template>
 
 <script>
+import NavLayout from '@/common/layouts/NavLayout.vue';
+import { vue_routes } from './routes';
+
 export default {
+  components: {
+    NavLayout: NavLayout
+  },
   data() {
-    return {}
+    return {
+      vue_routes
+    }
   },
-  mounted() {
-    
-  },
+  setup() {
+  }
 }
 </script>
 

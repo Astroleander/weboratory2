@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHashRouter } from '@/common/hook/useRouter';
 import ViewLayout from '@/common/layouts/ViewLayout';
-import NavLayout from '@/common/layouts/NavLayout';
+import NavLayout from '@/common/layouts/NavLayout.tsx';
 
 import { routes } from './routes'
 

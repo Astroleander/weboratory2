@@ -1,9 +1,10 @@
 import React from 'react';
-import ExceptionNoMatchRoutes from '../components/error/ExceptionNoMatchRoutes';
 
 import { Link } from 'react-router-dom';
 
 import cls from 'classnames';
+import Alert from '../components/error/fallbacks/Alert';
+import { LayoutStrings } from '../utils/LayoutStringUtil';
 
 export interface Routes {
   name: string,
@@ -16,7 +17,8 @@ const NavLayout:React.FC<{
   className?: any
 }> = ({ routes, with_react_router_dom = false, className }) => {
 
-  if (!routes || !routes.length) return <ExceptionNoMatchRoutes />
+  if (!routes) return <Alert type='error'>{LayoutStrings.Route_Loading_Failed}</Alert>
+  else if (!routes.length) return <Alert type='warning'>{LayoutStrings.Route_Empty}</Alert>
 
   return (<div className={cls('router-list', className)}>
     {with_react_router_dom ?
