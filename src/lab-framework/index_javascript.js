@@ -1,4 +1,4 @@
-import NavLayout from '@/common/layouts/NavLayout.ts';
+import NavLayout from '@/common/layouts/ts/NavLayout';
 import { js_routes } from './routes';
 
 const archor = [];

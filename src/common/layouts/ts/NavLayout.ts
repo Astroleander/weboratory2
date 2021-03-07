@@ -1,6 +1,6 @@
 import cls from 'classnames';
-import { LayoutStrings } from '../utils/LayoutStringUtil';
-import styles from '../styles/alert.modules.less';
+import { LayoutStrings } from '../../utils/LayoutStringUtil';
+import styles from '@/common/styles/alert.modules.less';
 
 /** Pure TS Routes 的 Alert 直接在这里写了，我不打算写一个 pure 版本的控件组 */
 export interface Routes {

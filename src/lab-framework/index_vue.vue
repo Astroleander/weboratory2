@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import NavLayout from '@/common/layouts/NavLayout.vue';
+import NavLayout from '@/common/layouts/vue/NavLayout';
 import { vue_routes } from './routes';
 
 export default {

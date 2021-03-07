@@ -3,8 +3,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import cls from 'classnames';
-import Alert from '../components/error/fallbacks/Alert';
-import { LayoutStrings } from '../utils/LayoutStringUtil';
+import Alert from '../../components/error/fallbacks/Alert';
+import { LayoutStrings } from '../../utils/LayoutStringUtil';
 
 export interface Routes {
   name: string,

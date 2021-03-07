@@ -1,4 +1,4 @@
-import NavLayout from '@/common/layouts/NavLayout.tsx';
+import NavLayout from '@/common/layouts/react/NavLayout';
 import React from 'react';
 import { react_routes } from './routes';
 

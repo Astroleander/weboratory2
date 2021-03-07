@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import { LayoutStrings } from '../utils/LayoutStringUtil';
+import { LayoutStrings } from '@/common/utils/LayoutStringUtil';
 import cls from 'classnames';
-import Alert from '../components/error/fallbacks/Alert.vue';
+import Alert from '@/common/components/error/fallbacks/Alert.vue';
 
 export default {
   components: { Alert },

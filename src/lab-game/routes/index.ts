@@ -1,4 +1,4 @@
-import { Routes }  from '@/common/layouts/NavLayout'
+import { Routes }  from '@/common/layouts/ts/NavLayout'
 const routes:Routes[] = [];
 
 const name_parser_in_webpack_5 = (key) => key.split(/\//)[2]

@@ -1,11 +1,11 @@
 import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
-import ViewLayout from '@/common/layouts/ViewLayout';
-import NavLayout from '@/common/layouts/NavLayout';
+import ViewLayout from '@/common/layouts/react/ViewLayout';
+import NavLayout from '@/common/layouts/ts/NavLayout';
 
 import { routes } from './routes'
-import OverlaysLayout from '@/common/layouts/OverlaysLayout';
+import OverlaysLayout from '@/common/layouts/react/OverlaysLayout';
 
 const Container = (props) => {
   return (
