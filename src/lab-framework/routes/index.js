@@ -1,4 +1,9 @@
-const name_parser_in_webpack_5 = (key) => key.split(/\//)[2];
+const name_parser_in_webpack_5 = (key) => {
+  const arr = key.split(/\//);
+  let idx = arr.findIndex((v, i, a) => v.includes('.'));
+  if (arr[idx].startsWith('index')) idx--;
+  return arr[idx];
+};
 const path_parser_in_webpack_5 = (key) => `views/${key.split(/\//).splice(2).join('/')}`;
 
 const loadRoutes = (routes) => {

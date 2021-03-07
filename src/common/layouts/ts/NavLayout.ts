@@ -28,12 +28,12 @@ const go = (url) => {
   window.location.hash = `/${url}`
 }
 
-const Routes: (any) => HTMLOListElement[] = ({ routes }) => {
+const Routes: (any) => HTMLOListElement[] = (routes) => {
   return routes.map(({ name, path }, idx) => {
     const li = document.createElement('li');
     li.onclick = () => go(path);
     li.innerHTML = formatName(name);
-    return routes;
+    return li;
   });
 }
 
