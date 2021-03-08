@@ -8,7 +8,7 @@ const entriesList = [];
  */
 const entryFactory = (dirname, dependOn = undefined) => {
   return {
-    import: [`./src/${dirname}/index`],
+    import: `./src/${dirname}/index`,
     dependOn: dependOn
   }
 }

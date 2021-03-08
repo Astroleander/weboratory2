@@ -15,7 +15,7 @@ const { standardCssLoader } = require("./webpack/config.loader");
 /** all entries needs to be recorded */
 entry.dependencies = {
   'react-vendors': ['react', 'react-dom', 'react-router-dom', 'react-router', 'prop-types'],
-  'vue-vendors': ['vue'],
+  'vue-vendors': { import: 'vue', runtime: 'vue-vendors-runtime' },
 }
 
 entry.entriesList = {
@@ -25,7 +25,7 @@ entry.entriesList = {
   'lab-framework': entry.entryFactory('lab-framework', ['react-vendors', 'vue-vendors']),
   home: entry.entryFactory('home', ['react-vendors', 'vue-vendors']),
 }
-
+console.log(entry.entriesList)
 module.exports = {
   context,
   target: 'web',
