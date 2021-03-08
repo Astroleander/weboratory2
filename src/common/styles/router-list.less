@@ -1,3 +1,5 @@
+@import "varibles.less";
+
 .router-list {
   li { 
     &, & a {
@@ -12,11 +14,12 @@
     list-style: none;
     padding-left: 8px;
     margin: 1px 2px;
-    border-left: 4px solid #666666;
+    border-left: 4px solid var(--secondary-color);
     transition: all 0.1s ease;
     &:hover {
-      border-left: 6px solid #212121; /** default border */
-      background-color: #EAEAEA;
+      border-left: 6px solid var(--primary-color); /** default border */
+      color: var(--primary-color);
+      background-color: var(--secondary-bg);
     }
   }
 }

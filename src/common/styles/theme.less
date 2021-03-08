@@ -1,0 +1,28 @@
+@import "varibles.less";
+
+// 为了让我们能手动切换黑暗模式, 不使用 prefers-color-scheme, 使用 dataset.theme 和 css/less varibles
+
+
+:root, :root[data-theme='theme-light'] {
+  --primary-bg: @dark-primary-bg;
+  --secondary-bg: @dark-secondary-bg;
+  --text-color: @dark-secondary-color;
+  --primary-color: @dark-primary-color;
+  --secondary-color: @dark-secondary-color;
+}
+:root[data-thme='theme-dark'] {
+  --primary-bg: @dark-primary-bg;
+  --secondary-bg: @dark-secondary-bg;
+  --text-color: @dark-secondary-color;
+  --primary-color: @dark-primary-color;
+  --secondary-color: @dark-secondary-color;
+}
+
+/** [ Attention ] 注意， less 是预编译的, 但是 less 执行转译的时候 :root 根本还没挂载变量, 会导致未定义的引用 */
+/** 所以这里只能用 css varibles */
+
+body {
+  background: var(--primary-bg);
+  color: var(--text-color);
+}
+
