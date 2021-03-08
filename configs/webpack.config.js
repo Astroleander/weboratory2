@@ -14,9 +14,10 @@ const { standardCssLoader } = require("./webpack/config.loader");
 
 /** all entries needs to be recorded */
 entry.dependencies = {
-  'react-vendors': ['react', 'react-dom'],
+  'react-vendors': ['react', 'react-dom', 'react-router-dom', 'react-router', 'prop-types'],
   'vue-vendors': { import: 'vue', runtime: 'runtime' },
 }
+
 entry.entriesList = {
   'lab-graphics': entry.entryFactory('lab-graphics', 'react-vendors'),
   'lab-scenario': entry.entryFactory('lab-scenario', 'react-vendors'),
@@ -32,7 +33,7 @@ module.exports = {
     ...entry.entriesList,
     ...entry.dependencies,
     /** 👇 injected in webpackHTMLplugin */
-    'configs': ['./configs/weboratory.common.js'],
+    'configs': ['./configs/weboratory.common.js']
   },
   output: {
     filename: '[name].bundle.[contenthash:6].js',

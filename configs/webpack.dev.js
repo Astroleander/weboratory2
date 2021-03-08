@@ -21,6 +21,7 @@ module.exports = merge(common, {
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerPort: analysis_port,
+      excludeAssets: /vendor|configs/
     }),
   ]
 });
