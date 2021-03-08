@@ -15,7 +15,7 @@ const { standardCssLoader } = require("./webpack/config.loader");
 /** all entries needs to be recorded */
 entry.dependencies = {
   'react-vendors': ['react', 'react-dom', 'react-router-dom', 'react-router', 'prop-types'],
-  'vue-vendors': { import: 'vue', runtime: 'runtime' },
+  'vue-vendors': ['vue'],
 }
 
 entry.entriesList = {
