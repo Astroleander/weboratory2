@@ -2,27 +2,39 @@
 
 // 为了让我们能手动切换黑暗模式, 不使用 prefers-color-scheme, 使用 dataset.theme 和 css/less varibles
 
-
-:root, :root[data-theme='theme-light'] {
-  --primary-bg: @dark-primary-bg;
-  --secondary-bg: @dark-secondary-bg;
-  --text-color: @dark-secondary-color;
-  --primary-color: @dark-primary-color;
-  --secondary-color: @dark-secondary-color;
+:root[data-theme='theme-light'] {
+  --primary-bg:       @light-primary-bg;
+  --secondary-bg:     @light-secondary-bg;
+  --text-color:       @light-secondary-color;
+  --primary-color:    @light-primary-color;
+  --secondary-color:  @light-secondary-color;
+  --shadow-color:     @light-shadow;
+  --shadow-color-strong: darken(@light-shadow, 30%);
+  --accent-color:     @light-accent-color;
 }
-:root[data-thme='theme-dark'] {
-  --primary-bg: @dark-primary-bg;
-  --secondary-bg: @dark-secondary-bg;
-  --text-color: @dark-secondary-color;
-  --primary-color: @dark-primary-color;
-  --secondary-color: @dark-secondary-color;
+:root[data-theme='theme-dark'] {
+  --primary-bg:       @dark-primary-bg;
+  --secondary-bg:     @dark-secondary-bg;
+  --text-color:       @dark-secondary-color;
+  --primary-color:    @dark-primary-color;
+  --secondary-color:  @dark-secondary-color;
+  --shadow-color:     @dark-shadow;
+  --shadow-color-strong: lighten(@dark-shadow, 10%);
+  --accent-color:     @dark-accent-color;
 }
 
 /** [ Attention ] 注意， less 是预编译的, 但是 less 执行转译的时候 :root 根本还没挂载变量, 会导致未定义的引用 */
 /** 所以这里只能用 css varibles */
+* {
+  transition: background-color 1s ease;
+}
 
 body {
   background: var(--primary-bg);
   color: var(--text-color);
 }
 
+button {
+  background: var(--accent-color);
+  color: var(--text-color);
+}

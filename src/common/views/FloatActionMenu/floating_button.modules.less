@@ -1,0 +1,84 @@
+@import "@/common/styles/theme.less";
+
+.floating-menu {
+  display: flex;
+  position:fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  bottom: 20px;
+  overflow: hidden;
+  border: none;
+  z-index: 9999;
+  * {
+    margin: 1vh 2.5vh
+  }
+}
+
+.floating-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 3vh;
+  height: 3vh;
+
+  border-radius: 50%;
+  background: var(--accent-color);
+  box-shadow: 0px 4px 6px var(--shadow-color-strong);
+  transition: 0.15s all;
+
+  cursor: pointer;
+  outline: none;
+
+  transition: 0.15s all;
+
+  &:active {
+    background: #333;
+    transition: 0.15s all;
+  }
+
+  * {
+    font-family: 'Roboto';
+    user-select: none;
+    line-height: 55px;
+    font-size: 38px;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.exit {
+  .cross {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 0;
+    line-height: 55px;
+    font-size: 38px;
+    transform: rotate(45deg);
+    transition: all 0.3s;
+    animation: cross-rotate-in 0.5s linear;
+    animation-fill-mode: forwards;
+
+    &:hover {
+      animation: cross-rotate-out 0.15s linear;
+      animation-fill-mode: forwards;
+    }
+  }
+
+}
+
+@keyframes cross-rotate-in {
+  from { transform: rotate(225deg)}
+  to { transform: rotate(45deg);}
+}
+
+@keyframes cross-rotate-out {
+  from { transform: rotate(45deg)}
+  to { transform: rotate(225deg);}
+}
