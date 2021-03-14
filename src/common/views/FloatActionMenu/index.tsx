@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Dark from './dark';
+import Dark from './icon_dark';
+import Home from './icon_home';
+import Back from './icon_back';
 import FloatActionButton from './floating_button'
 import styles from './floating_button.modules.less'
 
@@ -8,8 +10,8 @@ const FloatActionMenu = () => {
   return (
     <>
       <FloatActionButton onClick={() => fab.switchDarkMode()}><Dark/></FloatActionButton>
-      <FloatActionButton></FloatActionButton>
-      <FloatActionButton></FloatActionButton>
+      <FloatActionButton onClick={() => fab.backToHome()}><Home /></FloatActionButton>
+      <FloatActionButton onClick={() => fab.backToPrev()}><Back /></FloatActionButton>
       <FloatActionButton></FloatActionButton>
     </>
   );
@@ -19,7 +21,6 @@ const fab = {
   switchDarkMode() {
     const html = document.querySelector('html')
     const theme = html?.dataset.theme;
-    console.log(theme)
     if (!html) return;
 
     if (theme === null || undefined) {
@@ -30,6 +31,12 @@ const fab = {
       html.dataset.theme = 'theme-light';
     }
   },
+  backToHome() {
+    location.href = location.origin;
+  },
+  backToPrev() {
+    history.go(-1);
+  }
 }
 
 const wrapper = document.querySelector('#float');
