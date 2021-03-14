@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
 import ViewLayout from '@/common/layouts/react/ViewLayout';
-import NavLayout from '@/common/layouts/ts/NavLayout';
+import NavLayout from '@/common/layouts/react/NavLayout';
 
 import { routes } from './routes'
 import OverlaysLayout from '@/common/layouts/react/OverlaysLayout';
@@ -12,7 +12,7 @@ const Container = (props) => {
     <>
     <OverlaysLayout />
     <HashRouter>
-      <Switch>
+      <Switch> 
         <Route
           path='/views'
           component={() => <ViewLayout />}
