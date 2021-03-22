@@ -12,9 +12,22 @@
 .fragment-card {
   box-sizing: border-box;
   display: flex;
+  position: relative;
   flex-direction: column;
   text-decoration: none;
-  height: 30vh;
+  padding-top: 56.25%;
   border-radius: 2px;
   box-shadow: 2px 2px 10px var(--shadow-color);
+}
+
+.fragment-card .media {
+  position: absolute;
+  height: 60%;
+  top: 0%
+}
+
+.fragment-card .title {
+  position: absolute;
+  height: 40%;
+  top: 60%;
 }

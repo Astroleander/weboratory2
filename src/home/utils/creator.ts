@@ -11,7 +11,6 @@ export const card: (tag: string) => HTMLAnchorElement = (tag) => {
   card.id = `${tag}-card`;
   card.className = 'fragment-card';
   card.href = `${tag === 'home' ? '' : tag}/`;
-  card.innerHTML = tag;
 
   card.append(media(tag));
   card.append(title(tag));
@@ -36,6 +35,7 @@ export const media = (tag) => {
  */
 export const title = (tag) => {
   const container = document.createElement('div');
+  container.innerHTML = tag;
   container.classList.add('title');
   return container;
 }
@@ -55,7 +55,7 @@ function tryLoadFragment(container:HTMLDivElement ,tag:string) {
     const { rule: _, loader: load } = loader;
     import('@/home/fragments/' + file_name.slice(2)).then(m => {
       const module = m.default;
-      const component = load(module);
+      const component = load(module, tag);
       container.appendChild(component)
     })
   }
