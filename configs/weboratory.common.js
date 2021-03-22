@@ -5,4 +5,7 @@ import '@/common/styles/theme.less';
 
 import '@/common/views/FloatActionMenu';
 
-document.querySelector('html').dataset.theme = 'theme-light';
+import { THEME, initTheme } from '@/common/views/FloatActionMenu/index';
+
+/** set page display mode */
+initTheme();

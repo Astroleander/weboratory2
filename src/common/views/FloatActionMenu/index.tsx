@@ -6,6 +6,21 @@ import Back from './icon_back';
 import FloatActionButton from './floating_button'
 import styles from './floating_button.modules.less'
 
+export const THEME = 'THEME';
+export const initTheme = () => {
+  const theme = localStorage.getItem(THEME);
+  const root = document.querySelector('html');
+  if (!root) {
+    console.error('[INIT ERROR] can not find <html> tag. ');
+    return;
+  };
+  if (theme) {
+    root.dataset.theme = theme;
+  } else {
+    root.dataset.theme = 'theme-light';
+  }
+};
+
 const FloatActionMenu = () => {
   return (
     <>
@@ -21,15 +36,18 @@ const fab = {
   switchDarkMode() {
     const html = document.querySelector('html')
     const theme = html?.dataset.theme;
+    let value;
     if (!html) return;
 
     if (theme === null || undefined) {
 
     } else if (theme === 'theme-light') {
-      html.dataset.theme = 'theme-dark';
+      value = 'theme-dark';
     } else {
-      html.dataset.theme = 'theme-light';
+      value = 'theme-light';
     }
+    html.dataset.theme = value;
+    localStorage.setItem(THEME, value);
   },
   backToHome() {
     location.href = location.origin;
