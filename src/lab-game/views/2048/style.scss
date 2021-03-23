@@ -1,12 +1,12 @@
 $tile_size: 100px;
 $tile_margin: 5px;
 .hud {
+  margin: 0 auto;
   z-index: 999;
   opacity: 0.8;
   // position: absolute;
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
   justify-content: space-between;
   .text {
     font-size: 36px;
@@ -21,6 +21,7 @@ $tile_margin: 5px;
 }
 .board {
   overflow: hidden;
+  margin: 0 auto;
   width: fit-content;
   background-color: #eee;
   background-image: 
