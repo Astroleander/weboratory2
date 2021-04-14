@@ -5,21 +5,7 @@ import Home from './icon_home';
 import Back from './icon_back';
 import FloatActionButton from './floating_button'
 import styles from './floating_button.modules.less'
-
-export const THEME = 'THEME';
-export const initTheme = () => {
-  const theme = localStorage.getItem(THEME);
-  const root = document.querySelector('html');
-  if (!root) {
-    console.error('[INIT ERROR] can not find <html> tag. ');
-    return;
-  };
-  if (theme) {
-    root.dataset.theme = theme;
-  } else {
-    root.dataset.theme = 'theme-light';
-  }
-};
+import { toggle as toggleDarkMode } from '@/common/modules/darkmode';
 
 const FloatActionMenu = () => {
   return (
@@ -34,20 +20,7 @@ const FloatActionMenu = () => {
 
 const fab = {
   switchDarkMode() {
-    const html = document.querySelector('html')
-    const theme = html?.dataset.theme;
-    let value;
-    if (!html) return;
-
-    if (theme === null || undefined) {
-
-    } else if (theme === 'theme-light') {
-      value = 'theme-dark';
-    } else {
-      value = 'theme-light';
-    }
-    html.dataset.theme = value;
-    localStorage.setItem(THEME, value);
+    toggleDarkMode()
   },
   backToHome() {
     location.href = location.origin;
