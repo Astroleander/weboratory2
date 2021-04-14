@@ -5,7 +5,7 @@ import '@/common/styles/theme.less';
 
 import '@/common/views/FloatActionMenu';
 
-import { THEME, initTheme } from '@/common/views/FloatActionMenu/index';
+import { THEME, initTheme } from '@/common/modules/darkmode';
 
 /** set page display mode */
 initTheme();

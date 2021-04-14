@@ -23,8 +23,9 @@ entry.entriesList = {
   'lab-scenario': entry.entryFactory('lab-scenario', 'react-vendors'),
   'lab-game': entry.entryFactory('lab-game', 'react-vendors'),
   /** [ 🐛 bug ] dependOn 接受 array (which length == 1) 和 string 都可以正常工作, 但是当 length > 2 的时候其不起作用 */
-  'lab-framework': entry.entryFactory('lab-framework', ['react-vendors']),
-  home: entry.entryFactory('home', ['react-vendors']),
+  'lab-framework': entry.entryFactory('lab-framework', ['vue-vendors', 'react-vendors']),
+  'lab-library': entry.entryFactory('lab-library', ['react-vendors']),
+  home: entry.entryFactory('home', ['vue-vendors', 'react-vendors']),
 }
 module.exports = {
   context,
