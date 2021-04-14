@@ -4,7 +4,8 @@ const sandbox_container = document.createElement('div');
 sandbox_container.id = 'sandbox-container';
 sandbox_wrapper.appendChild(sandbox_container);
 
-let sandbox, sandboxClean = () => {}
+let bindSandbox = () => {}, clearSandbox = () => {}
+let sandbox;
 
 const activeSandboxPanel = () => {
   sandbox_wrapper.className = 'active';
@@ -14,21 +15,23 @@ const closeSandboxPanel = () => {
 }
 
 const hashHandler = () => {
+  clearSandbox();
   if (!location.hash) {
     closeSandboxPanel();
-  }
-  import(`@/lab-framework/${location.hash.substr(2)}`)
+  } else {
+    import(`@/lab-framework/${location.hash.substr(2)}`)
     .then(m => {
-      sandboxClean();
       if(sandbox) sandbox_container.removeChild(sandbox);
 
-      [sandbox, sandboxClean = () => {}] = m.default;
+      [bindSandbox, clearSandbox = () => { }] = m.default;
+      sandbox = bindSandbox();
       sandbox_container.appendChild(sandbox);
       activeSandboxPanel();
     })
     .catch(e => {
       console.error(e)
     })
+  }
 }
 
 hashHandler();

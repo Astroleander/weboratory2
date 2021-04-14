@@ -10,5 +10,11 @@ const Index = () => {
 }
 
 const mount = document.createElement('div');
-ReactDOM.render(<Index />, mount);
-export default [mount, () => ReactDOM.unmountComponentAtNode(mount)];
+
+export default [
+  () => {
+    ReactDOM.render(<Index />, mount);
+    return mount;
+  },
+  () => ReactDOM.unmountComponentAtNode(mount)
+];
