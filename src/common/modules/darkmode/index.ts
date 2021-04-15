@@ -1,3 +1,4 @@
+import { debounce } from '@/common/utils/FunctionUtils';
 import { TOKEN_THEME as THEME } from '@/common/utils/TokenUtil';
 
 export { THEME }
@@ -24,11 +25,13 @@ export const initTheme:() => void = () => {
  * toggle theme/mode
  * @returns current value
  */
-export const toggle:() => string = () => {
+export const toggle: () => string = () => {
   const html = document.querySelector('html')
-  const theme = html?.dataset.theme;
   let value;
+
   if (!html) return;
+  const theme = html.dataset.theme;
+  handleOnSwitchTag(html);
 
   if (theme === null || undefined) {
 
@@ -40,4 +43,16 @@ export const toggle:() => string = () => {
   html.dataset.theme = value;
   localStorage.setItem(THEME, value);
   return value;
+}
+
+let removeClassLater;
+
+const handleOnSwitchTag: (root: HTMLHtmlElement) => void = (root) => {
+  const class_token = 'on-theme-switching';
+  removeClassLater ??= debounce(() => {
+    root.classList.remove(class_token)
+  }, 1200);
+
+  root.classList.add(class_token);
+  removeClassLater();
 }
