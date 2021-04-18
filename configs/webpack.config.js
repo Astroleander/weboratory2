@@ -52,6 +52,10 @@ module.exports = {
     new DefinePlugin({
       ENTRIES: JSON.stringify(Object.keys(entry.entriesList)),
     }),
+    new DefinePlugin({
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+    }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash:6].css",
