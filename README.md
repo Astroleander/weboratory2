@@ -6,3 +6,4 @@
 + [🎉feat] add new pages
 + [🌟boost] add new feature in framework
 + [⚡upgrade] make things better
++ [🍕addon] add new to list
