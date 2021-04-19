@@ -4,7 +4,7 @@ import React from 'react';
 
 const Buttons = () => {
   const path = 'button/';
-  const routes = require.context('@/common/components/button', false, /^(?=\.)/);
+  const routes = require.context('@/common/components/button', false, /^(?=\.)/, 'lazy');
   const { react_routes, vue_routes, js_routes } = filterRoutes(path, routes)
   return (
     <>
