@@ -1,3 +1,4 @@
+import { ErrorTemplateNotFound } from '@/common/utils/ExceptionUtils';
 import { vueLoader } from '@/home/utils/loader'
 import { markRaw } from '@vue/reactivity';
 import React, { useLayoutEffect, useState } from 'react'
@@ -8,32 +9,30 @@ const VueLive = ({ routes }) => {
 
   useLayoutEffect(() => {
     let hook = document.getElementById('vue-live-sample');
-    if (!hook) return;
-
     hook.style.height = '100%';
 
+    if (!hook) return;
+
     const app = createApp({
-      data: () => ({
-        components: components,
-      }),
+      data: () => ({ components: components }),
       template: `
-        <div>
-          <component v-for="component in components" v-bind:is="component.component" :key="component.name"></component>
-        </div>
+        <component v-for="component in components" v-bind:is="component.component" :key="component.name" :name="component.name"></component>
       `,
     });
 
     const vm = app.mount(hook);
-
+    const loadModule = (m, r) => {
+      if (!m.default.render) throw new ErrorTemplateNotFound(r.path)
+      setComponent(v => {
+        vm.$data.components.push({ component: markRaw(m.default), name: r.name })
+        v = vm.$data.components
+        return v;
+      })
+    }
     routes.forEach(route => {
-      import('@/common/components/' + route.path).then(m => {
-        const module = markRaw(m.default);
-        setComponent(v => {
-          vm.$data.components.push({ component: module, name: route.name })
-          v = vm.$data.components
-          return v;
-        })
-      });
+      import('@/common/components/' + route.path)
+        .then(m => loadModule(m, route))
+        .catch(e => console.error(e));
     })
   }, []);
 

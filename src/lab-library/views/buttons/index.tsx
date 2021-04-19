@@ -7,10 +7,10 @@ const Buttons = () => {
   const routes = require.context('@/common/components/button', false, /^(?=\.)/);
   const { react_routes, vue_routes, js_routes } = filterRoutes(path, routes)
   return (
-    <div>
+    <>
       {/* <ReactLive routes={routes}></ReactLive> */}
       <VueLive routes={vue_routes}></VueLive>
-    </div>
+    </>
   )
 }
 
