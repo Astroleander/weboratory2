@@ -13,19 +13,23 @@ class APromise<T=any> {
   
   constructor(executor: (resolve: (value: T | void) => void, reject: (reason?: any) => void) => void) {
     const resolve = (val) => {
-      if (this.status === STATUS.PENDING) {
-        this.status = STATUS.FULFILLED;
-        this.value = val;
-        /** 一旦不是 fulfilled 会在上面就被挡住, 不会把整个队列跑空 */
-        this.onFulfulledCallbacks.forEach(next_resolve => next_resolve(this.value))
-      }
+      setTimeout(() => {
+        if (this.status === STATUS.PENDING) {
+          this.status = STATUS.FULFILLED;
+          this.value = val;
+          /** 一旦不是 fulfilled 会在上面就被挡住, 不会把整个队列跑空 */
+          this.onFulfulledCallbacks.forEach(next_resolve => next_resolve(this.value))
+        }
+      }, 0);
     }
     const reject = (res) => {
-      if (this.status === STATUS.PENDING) {
-        this.status = STATUS.REJECTED;
-        this.reason = res;
-        this.onRejectedCallbacks.forEach(next_reject => next_reject(this.reason))
-      }
+      setTimeout(() => {
+        if (this.status === STATUS.PENDING) {
+          this.status = STATUS.REJECTED;
+          this.reason = res;
+          this.onRejectedCallbacks.forEach(next_reject => next_reject(this.reason))
+        }
+      }, 0);
     }
 
     try {
@@ -35,12 +39,16 @@ class APromise<T=any> {
     }
   }
 
+  /**
+   * In Standard TypeProps Defines:
+   * onFulfulled: ((value: T) => T | PromiseLike<void>) | null | undefined
+   */
   then(
-    onFulfulled: ((value: T) => T | APromise<T> | void) ,
-    onRejected?: ((value: T) => T | APromise<T> | void) ,
+    onFulfulled: ((value: T) => T | APromise<T> | void),
+    onRejected?: ((value: T) => T | APromise<T> | void),
   ) {
     switch (this.status) {
-      // 上一个任务还在执行中, 那么把当前任务加入执行队列
+      // 上一个任务还在执行中, 那么把当前任务加入执行队列, 否则直接包裹并执行
       case STATUS.PENDING:
         /** 只考虑 then 返回值可能是一个 function */
         `
@@ -56,7 +64,7 @@ class APromise<T=any> {
             // 执行 then(f)
             let then_result = onFulfulled(this.value);
             then_result instanceof APromise
-              // 如果执行结果是 Promise 就再次构造它,把它加到队列末尾
+              // 如果执行结果是 Promise 就再次构造它,把它加到队列
               ? then_result.then(resolve, reject)
               // 否则说明这是一个简单值, 直接作为把当前 APromise 执行掉
               : resolve(then_result)
@@ -71,11 +79,11 @@ class APromise<T=any> {
           })
         })
 
-        /** FULFILLED & REJECTED 的情况实际上更简单, 只需要根据当前流直接执行即可, 不涉及缓存的任务队列 */
-        // 上一个任务已经执行完成
-        
+      /** FULFILLED & REJECTED 的情况实际上更简单, 只需要根据当前流直接执行即可, 不涉及缓存的任务队列 */
+      // 上一个任务已经执行完成
       case STATUS.FULFILLED:
-          return new APromise<T>((resolve, reject) => {
+        return new APromise<T>((resolve, reject) => {
+          setTimeout(() => {
             try {
               let then_result = onFulfulled(this.value)
               then_result instanceof APromise
@@ -84,9 +92,11 @@ class APromise<T=any> {
             } catch (err) {
               reject(err)
             }
-          });
-        case STATUS.REJECTED:
-          return new APromise<T>((resolve, reject) => {
+          }, 0)
+        });
+      case STATUS.REJECTED:
+        return new APromise<T>((resolve, reject) => {
+          setTimeout(() => {
             try {
               if (!onRejected) { reject(); return; }
               let then_result = onRejected(this.value)
@@ -97,6 +107,7 @@ class APromise<T=any> {
               reject(err)
             }
           });
+        })
     }
   }
 }
