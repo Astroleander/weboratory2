@@ -7,6 +7,6 @@
 | [🌈beautify]  | beautify interface              |
 | [⚒️fix]       | fix bugs                        |
 | [🎉feat]      | add new pages                   |
-| [🌟boost]     | add new feature in framework    |
-| [⚡upgrade]   | make things better              |
+| [⚡boost]     | make things better              |
+| [🌟upgrade]   | add new feature in framework    |
 | [🍕addon]     | add new to list                 |

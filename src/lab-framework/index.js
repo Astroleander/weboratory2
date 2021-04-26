@@ -8,11 +8,15 @@ import VueSection from './index_vue';
 import JsSection from './index_javascript';
 import Sandbox from './sandbox';
 
-import './styles.less';
+import styles from './index.modules.less';
+
 const root = document.querySelector('#root');
+root.className = styles['sandbox-root'];
+
 /** left part is the router */
 const router = document.createElement('section');
 router.id = 'router';
+router.className = styles['sandbox-router'];
 
 /** right part is the sandbox */
 const sandbox = Sandbox;

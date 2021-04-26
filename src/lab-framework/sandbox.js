@@ -1,17 +1,25 @@
+import styles from './index.modules.less';
+
+/** 这里实际上是初始化时会直接调用的一部分, 整个页面始终存在于 framework 页面, 因此直接用单例初始化也没啥问题 */
+
 const sandbox_wrapper = document.createElement('section');
 sandbox_wrapper.id = 'sandbox';
-const sandbox_container = document.createElement('div');
-sandbox_container.id = 'sandbox-container';
-sandbox_wrapper.appendChild(sandbox_container);
+sandbox_wrapper.className = styles['sandbox-wrapper'];
 
-let bindSandbox = () => {}, clearSandbox = () => {}
+// default binder
+let bindSandbox = () => { }, clearSandbox = () => { }
+
+// instance
 let sandbox;
 
 const activeSandboxPanel = () => {
-  sandbox_wrapper.className = 'active';
+  sandbox_wrapper.classList.add(styles['active']);
+  sandbox_wrapper.classList.remove(styles['inactive']);
 }
+
 const closeSandboxPanel = () => {
-  sandbox_wrapper.className = 'inactive';
+  sandbox_wrapper.classList.remove(styles['active']);
+  sandbox_wrapper.classList.add(styles['inactive']);
 }
 
 const hashHandler = () => {
@@ -21,11 +29,11 @@ const hashHandler = () => {
   } else {
     import(`@/lab-framework/${location.hash.substr(2)}`)
     .then(m => {
-      if(sandbox) sandbox_container.removeChild(sandbox);
+      if(sandbox) sandbox_wrapper.removeChild(sandbox);
 
       [bindSandbox, clearSandbox = () => { }] = m.default;
       sandbox = bindSandbox();
-      sandbox_container.appendChild(sandbox);
+      sandbox_wrapper.appendChild(sandbox);
       activeSandboxPanel();
     })
     .catch(e => {

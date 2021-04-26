@@ -1,10 +1,28 @@
 @import "@/common/styles/varibles.less";
 
-#root {
-  #router {
+.code-source-plane {
+  overflow-y: auto;
+}
 
+.showing-case-plane {
+  overflow-y: auto;
+}
+
+.test-case-plane {
+  overflow-y: auto;
+}
+.sandbox-instance {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 6fr 2fr 2fr;
+  grid-template-columns: 1fr;
+}
+
+.sandbox-root {
+  .sandbox-router {
+    overflow: hidden;
   }
-  #sandbox {
+  .sandbox-wrapper {
     position: absolute;
     // display: block;
     overflow: hidden;
@@ -24,7 +42,5 @@
       width: 50vw;
     }
   }
-  #sandbox-container{
-    width: 50vw;
-  }
+
 }
