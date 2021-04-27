@@ -1,20 +1,14 @@
 @import "@/common/styles/varibles.less";
 
-.code-source-plane {
+.source-box, .running-box, .testcase-box {
+  font-size: 1.15em;
   overflow-y: auto;
 }
 
-.showing-case-plane {
-  overflow-y: auto;
-}
-
-.test-case-plane {
-  overflow-y: auto;
-}
 .sandbox-instance {
   height: 100vh;
   display: grid;
-  grid-template-rows: auto 6fr 2fr 2fr;
+  grid-template-rows: auto 5fr 3fr 2fr;
   grid-template-columns: 1fr;
 }
 
@@ -32,7 +26,7 @@
     width: 2vw;
     box-shadow: -2px -2px var(--secondary-bg);
     background: var(--secondary-bg);
-    transition: width ease-in-out .4s;
+    transition: width ease-in-out .15s;
     &.inactive {
       &:hover {
         width: 50vw;
