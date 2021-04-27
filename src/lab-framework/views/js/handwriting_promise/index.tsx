@@ -16,6 +16,9 @@ const test = ([output, setOutput]) => {
   };
   
   setOutput(v => v.concat('test macro task start'));
+  setTimeout(() => {
+    setOutput(v => v.concat('setTimeout 0 done before micros'))
+  })
   const Promise = APromise;
   // generator 0 to 6
   let c = new Promise<string|number>(executor);
@@ -35,7 +38,7 @@ const test = ([output, setOutput]) => {
     setOutput(v => v.concat('then 3.done'))
   })
   setTimeout(() => {
-    setOutput(v => v.concat('setTimeout done'))
+    setOutput(v => v.concat('setTimeout done after micros'))
   })
   setTimeout(() => {
     setOutput(v => v.concat('setTimeout 1000 done'))

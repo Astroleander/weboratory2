@@ -3,7 +3,7 @@ enum STATUS {
   FULFILLED = 'FULFILLED',
   REJECTED  = 'REJECTED'
 }
-  
+
 class APromise<T=any> {
   status: STATUS = STATUS.PENDING;
   value: any = null;
