@@ -1,6 +1,7 @@
 // @import "@/common/styles/theme.less";
 
-.floating-menu {
+.floating-menu menu{
+  padding: 0 0 0 0;
   display: flex;
   position:fixed;
   left: 50%;
@@ -9,7 +10,7 @@
   overflow: hidden;
   border: none;
   z-index: 9999;
-  * {
+  &>div,&>button,&>menuitem {
     margin: 1vh 2.5vh
   }
   svg {
@@ -19,10 +20,10 @@
   transition: bottom ease-in-out .75s, opacity ease-in-out .25s;
 
   // for down-up-toggle
-  bottom: 20px;
+  bottom: -1.75vh;
   &.hidden {
-    bottom: -5.25vh;
-    opacity: .15;
+    bottom: -3.25vh;
+    opacity: .0;
     will-change: auto;
   }
 }
