@@ -64,7 +64,7 @@ const ReactRouterDOMRoutes:React.FC<{
 }
 
 const formatName = name => {
-  return name.replace(/_/, ' ');
+  return name.replaceAll(/_/g, ' ');
 };
 
 export default NavLayout;

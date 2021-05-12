@@ -7,8 +7,8 @@ const context = path.join(__dirname, '..');
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
-const analysis_port = 9091;
-const port = 9090;
+const PORT = 12450;
+const ANALYSIS_PORT = PORT + 1;
 
 module.exports = merge(common, {
   mode: "development",
@@ -16,11 +16,11 @@ module.exports = merge(common, {
   devServer: {
     contentBase: path.join(context, 'dist'),
     compress: false,
-    port: port
+    port: PORT
   },
   plugins: [
     new BundleAnalyzerPlugin({
-      analyzerPort: analysis_port,
+      analyzerPort: ANALYSIS_PORT,
       excludeAssets: /vendor|configs/
     }),
   ]
