@@ -7,3 +7,11 @@ export class ErrorTemplateNotFound extends Error {
     this.name = CUTSOMARY_ERROR;
   }
 }
+
+export class ErrorDynamicImportFailed extends Error {
+  constructor(name) {
+    const message = `COMPONENT "${name}" IS NOT FOUND`
+    super(message);
+    this.name = CUTSOMARY_ERROR;
+  }
+}
