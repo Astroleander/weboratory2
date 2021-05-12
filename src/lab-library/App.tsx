@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHashRouter } from '@/common/hook/useRouter';
+import { useHashRouter } from '@/common/hooks/useRouter';
 import ViewLayout from '@/common/layouts/react/ViewLayout';
 import NavLayout from '@/common/layouts/react/NavLayout';
 

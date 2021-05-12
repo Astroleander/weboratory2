@@ -3,7 +3,7 @@ import Tile from './tile_view';
 import Board, { useBoard } from './entity/Board';
 import './style.scss';
 import cls from 'classnames';
-import { useSimpleGameController } from '@/common/hook/useSimpleGameController';
+import { useSimpleGameController } from '@/common/hooks/useSimpleGameController';
 
 const BoardView = () => {
   const [ board ] = useBoard(8,8);
