@@ -81,7 +81,12 @@ module.exports = {
         use: [
           ...standardCssLoader,
           { loader: "less-loader" },
-        ], },
+        ],
+      },
+      {
+        test: /\.woff(2)?$/,
+        use: { loader: "file-loader" },
+      },
     ]
   }
 }

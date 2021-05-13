@@ -1,6 +1,6 @@
 import React from 'react';
 import cls from 'classnames';
-import styles from '../../../styles/alert.modules.less';
+import styles from '@/common/styles/alert.modules.less';
 
 interface Alert {
   type?: string,

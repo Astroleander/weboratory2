@@ -5,9 +5,29 @@ html, body {
 
 * {
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Roboto|Noto+Serif+JP|Noto+Serif+SC|Noto+Serif+TC&display=swap');
+@font-face {
+  font-family: 'DinkieBitmap7px';
+  src: local('../assets/DinkieBitmap-7px.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DinkieBitmap9px';
+  font-style: normal;
+  src: local('../assets/DinkieBitmap-9px.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DinkieBitmap9px';
+  font-style: italic;
+  src: local('../assets/DinkieBitmap-9pxItalic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DinkieBitmapMono';
+  src: local('../assets/DinkieBitmap-9pxCode.woff2') format('woff2');
+}
+
 h1, h2, h3, h4, h5 {
   font-family: 'Noto Serif SC';
   margin: 0.2em 0; 

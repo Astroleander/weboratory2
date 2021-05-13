@@ -11,7 +11,7 @@
 <script>
 import { LayoutStrings } from '@/common/utils/LayoutStringUtil';
 import cls from 'classnames';
-import Alert from '@/common/components/error/fallbacks/Alert.vue';
+import Alert from '@/common/components/fallbacks/Alert.vue';
 
 export default {
   components: { Alert },
