@@ -1,4 +1,10 @@
 # Guide
++ **home** — navigation page
++ **framework** — every thing to implement a js lib/framework
++ **game** — js game demo
++ **graphics** — graphics is romance
++ **scennario** — mock real web application
++ **library** — display code fragment in `/common` 
 # TAGS
 
 | TAGS  |   |

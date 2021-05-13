@@ -85,7 +85,7 @@ module.exports = {
       },
       {
         test: /\.woff(2)?$/,
-        use: { loader: "file-loader" },
+        type: 'asset/resource',
       },
     ]
   }

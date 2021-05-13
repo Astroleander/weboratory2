@@ -1,3 +1,11 @@
+# loader
+https://webpack.js.org/guides/asset-modules/
+https://webpack.docschina.org/guides/asset-management/#loading-fonts
++ 组件化的思路应该贯彻到组件级别，每一个组件所有的**资源**和**代码**都应当一起存储和使用。
++ `url-loader` 的结果是内联的 base64 编码
++ `file-loader` 的结果是注入 output 的文件
++ 如果 `Rule.type` 被设置成 'json'，那么 `Rules.parser.parse` 选择可能会是一个方法，该方法实现自定义的逻辑，以解析模块的源和并将它转换成 JavaScript 对象。
+
 # HTMLWebpackPlugin
 
 `HTMLWebpackPlugin` 如果配置了 chunks 项，那么其产物会所固定 chunks 设置的值, 需要谨防其它插件和配置项干涉到 chunks 生产。
