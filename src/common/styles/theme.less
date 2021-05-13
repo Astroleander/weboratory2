@@ -5,6 +5,7 @@
 :root[data-theme='theme-light'] {
   --primary-bg:       @light-primary-bg;
   --secondary-bg:     @light-secondary-bg;
+  --contrast-bg:      fade(@dark-primary-bg, 3%);
   --text-color:       @light-secondary-color;
   --primary-color:    @light-primary-color;
   --secondary-color:  @light-secondary-color;
@@ -15,6 +16,7 @@
 :root[data-theme='theme-dark'] {
   --primary-bg:       @dark-primary-bg;
   --secondary-bg:     @dark-secondary-bg;
+  --contrast-bg:      fade(@light-primary-bg, 3%);
   --text-color:       @dark-secondary-color;
   --primary-color:    @dark-primary-color;
   --secondary-color:  @dark-secondary-color;
@@ -37,6 +39,28 @@ body {
 button {
   background: var(--accent-color);
   color: var(--text-color);
+}
+
+kbd {
+  font-family: Consolas, "Lucida Console", monospace;
+  display: inline-block;
+  padding: 0.1em 0.6em;
+  margin: 0 .2em;
+  background-color: var(--primary-bg);
+  border-radius: 3px;
+  // border: 1px solid var(--shadow-color);
+  color: var(--text-color);
+  font-size: .85em;
+  font-variant: small-caps;
+  letter-spacing: 1px;
+  line-height: 1;
+  white-space: nowrap;
+  :root[data-theme='theme-light'] & {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+  }
+  :root[data-theme='theme-dark'] & {
+    box-shadow:0 1px 1px rgba(0, 0, 0, .7), 0 2px 0 0 rgba(35, 35, 35, .7) inset;
+  }
 }
 
 .on-theme-switching {

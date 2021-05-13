@@ -1,0 +1,32 @@
+.replayable-child {
+
+  height: auto;
+  min-width: inherit;
+  padding: 12px 18px 18px 12px;
+  margin: 24px 48px;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 133%;
+  font-variant-ligatures: contextual;
+  font-feature-settings: "calt";
+  user-select: none;
+  font-family: Hack, monospace;
+  background: var(--contrast-bg);
+
+  &:active {
+    background: var(--secondary-bg);
+  }
+  & > header > svg {
+    vertical-align: middle;
+  }
+  & > header > span{
+    font-size: 14px;
+    margin-left: 8px;
+    font-weight: bold;
+    font-family: Consolas, 'Source Code Pro', monospace;
+    letter-spacing: .2ch;
+  }
+  & > div {
+    margin-top: 12px;
+  }
+}

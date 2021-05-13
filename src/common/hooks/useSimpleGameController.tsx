@@ -17,7 +17,11 @@ const callbackReducer = (state, action) => {
   }
 }
 
-const useSimpleGameController = () => {
+/**
+ * 
+ * @returns {Array} 4 useSimpleGameController callback register(setter) interface sequenced in `[setLeft, setRight, setUp, setDown]`, call it like `setState(fn)`
+ */const useSimpleGameController: () => [Function, Function, Function, Function] = () => {
+
   const [callbacks, dispatch] = useReducer(callbackReducer, {}, initCallbacks);
 
   useEffect(() => {
