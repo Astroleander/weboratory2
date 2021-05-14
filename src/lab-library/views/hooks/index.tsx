@@ -3,6 +3,7 @@ import Loading from '@/common/components/fallbacks/Loading'
 import { Replayable } from './ReplayableContainer';
 import { useLazyLoading } from '@/common/hooks/useLazyLoading'
 import { useSimpleGameController } from '@/common/hooks/useSimpleGameController';
+import { useHashRouter } from '@/common/hooks/useRouter';
 
 const LazyLoadingSample = ({ hook }: { hook?: Function } = { hook: useLazyLoading }) => {
   const fakeImport = new Promise((resolve, reject) => {
@@ -33,11 +34,21 @@ const SimpleGameControllerSample = ({ hook }) => {
   </>
 }
 
+const HashRouterSample = ({ hook }) => {
+  const [router] = useHashRouter();
+  const SwitchButton = () => <button onClick={() => location.hash = ''}>Change Hash</button>
+  return <>
+    <div>Hash Path:<code>{location.hash}</code></div>
+    <SwitchButton />
+  </>
+}
+
 const Index = () => {
   return (
     <Replayable>
-      <LazyLoadingSample hook={useLazyLoading}/>
+      <LazyLoadingSample hook={useLazyLoading} />
       <SimpleGameControllerSample hook={useSimpleGameController} />
+      <HashRouterSample hook={useHashRouter} />
     </Replayable>
   )
 }
