@@ -38,7 +38,11 @@ body {
 
 button {
   background: var(--accent-color);
-  color: var(--text-color);
+  color: var(--primary-color);
+  cursor: pointer;
+  &:active {
+    background: var(--secondary-color)
+  }
 }
 
 kbd {

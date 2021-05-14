@@ -37,3 +37,12 @@ h2 { font-size: 1.34rem; opacity: 0.9;}
 h3 { font-size: 1.20rem; opacity: 0.8;}
 h4 { font-size: 1.10rem; opacity: 0.7;}
 h5 { font-size: 1.05rem; opacity: 0.6;}
+
+button {
+  border-radius: 4px;
+  border: none;
+}
+
+code {
+  font-family: Consolas, monospace
+}
