@@ -1,11 +1,42 @@
 import React, { useState, useEffect } from 'react'
+import Alert from '@/common/components/fallbacks/Alert';
 import Loading from '@/common/components/fallbacks/Loading'
 import { Replayable } from './ReplayableContainer';
 import { useLazyLoading } from '@/common/hooks/useLazyLoading'
 import { useSimpleGameController } from '@/common/hooks/useSimpleGameController';
 import { useHashRouter } from '@/common/hooks/useRouter';
+import { useErrorBoundary } from '@/common/hooks/useErrorBoundary';
 
-const LazyLoadingSample = ({ hook }: { hook?: Function } = { hook: useLazyLoading }) => {
+type HookSample = ({ hook }: { hook?: Function }) => React.ReactElement
+
+const ErrorBoundarySample: HookSample = () => {
+  const ErrorBoundary = useErrorBoundary();
+  const [isThrow, setIsThrow] = useState(false);
+  const [isFallback, setIsFallback] = useState(false);
+
+  let SubComponent = ({ isThrow }) => {
+    if (isThrow) { throw new SyntaxError('[boundary] This Component Throw a SyntaxError'); }
+    return <div>Normal Component in ErrorBoundary</div>
+  };
+
+  return <>
+    <div>
+      <input type="checkbox" defaultChecked={isThrow} onClick={(e) => { e.stopPropagation(); }} onChange={() => setIsThrow(v => !v)} />
+      <label>has error</label>
+      <input type="checkbox" defaultChecked={isFallback} onClick={(e) => { e.stopPropagation(); }} onChange={() => setIsFallback(v => !v)}/>
+      <label>has fallback</label>
+    </div>
+    <ErrorBoundary
+      onDidCatch={() => { console.log('[error]') }}
+      fallback={isFallback ? e => <Alert type="error">This is custom boundary</Alert> : undefined}
+    >
+      <SubComponent isThrow={isThrow}></SubComponent>
+    </ErrorBoundary>
+
+  </>
+}
+
+const LazyLoadingSample: HookSample = ({ hook }) => {
   const fakeImport = new Promise((resolve, reject) => {
     const component = () => <>Fake Component</>
     setTimeout(() => {
@@ -18,7 +49,7 @@ const LazyLoadingSample = ({ hook }: { hook?: Function } = { hook: useLazyLoadin
   </>;
 }
 
-const SimpleGameControllerSample = ({ hook }) => {
+const SimpleGameControllerSample: HookSample = ({ hook }) => {
   const [input, addInput] = useState<string[]>([]);
   let [setLeft, setRight, setUp, setDown] = useSimpleGameController()
   useEffect(() => {
@@ -34,7 +65,7 @@ const SimpleGameControllerSample = ({ hook }) => {
   </>
 }
 
-const HashRouterSample = ({ hook }) => {
+const HashRouterSample: HookSample = ({ hook }) => {
   const [router] = useHashRouter();
   const SwitchButton = () => <button onClick={() => location.hash = ''}>Change Hash</button>
   return <>
@@ -49,6 +80,7 @@ const Index = () => {
       <LazyLoadingSample hook={useLazyLoading} />
       <SimpleGameControllerSample hook={useSimpleGameController} />
       <HashRouterSample hook={useHashRouter} />
+      <ErrorBoundarySample hook={useErrorBoundary} />
     </Replayable>
   )
 }
