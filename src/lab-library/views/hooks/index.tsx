@@ -5,7 +5,9 @@ import { Replayable } from './ReplayableContainer';
 import { useLazyLoading } from '@/common/hooks/useLazyLoading'
 import { useSimpleGameController } from '@/common/hooks/useSimpleGameController';
 import { useHashRouter } from '@/common/hooks/useRouter';
-import { useErrorBoundary } from '@/common/hooks/useErrorBoundary';
+import { useErrorBoundary } from '@/common/hooks/useCrudeErrorBoundary';
+import { Block } from '@/common/components/skeleton/Block';
+import { Container as BlockContainer } from '@/common/components/skeleton/Container';
 
 type HookSample = ({ hook }: { hook?: Function }) => React.ReactElement
 
@@ -16,7 +18,7 @@ const ErrorBoundarySample: HookSample = () => {
 
   let SubComponent = ({ isThrow }) => {
     if (isThrow) { throw new SyntaxError('[boundary] This Component Throw a SyntaxError'); }
-    return <div>Normal Component in ErrorBoundary</div>
+    return <Block>Normal Component in ErrorBoundary</Block>
   };
 
   return <>
@@ -26,27 +28,28 @@ const ErrorBoundarySample: HookSample = () => {
       <input type="checkbox" defaultChecked={isFallback} onClick={(e) => { e.stopPropagation(); }} onChange={() => setIsFallback(v => !v)}/>
       <label>has fallback</label>
     </div>
-    <ErrorBoundary
-      onDidCatch={() => { console.log('[error]') }}
-      fallback={isFallback ? e => <Alert type="error">This is custom boundary</Alert> : undefined}
-    >
-      <SubComponent isThrow={isThrow}></SubComponent>
-    </ErrorBoundary>
-
+    <BlockContainer>
+      <ErrorBoundary
+        onDidCatch={() => { console.log('[error]') }}
+        fallback={isFallback ? e => <Alert type="error">This is custom boundary</Alert> : undefined}
+      >
+        <SubComponent isThrow={isThrow}></SubComponent>
+      </ErrorBoundary>
+    </BlockContainer>
   </>
 }
 
 const LazyLoadingSample: HookSample = ({ hook }) => {
   const fakeImport = new Promise((resolve, reject) => {
-    const component = () => <>Fake Component</>
+    const component = () => <Block><Block /></Block>
     setTimeout(() => {
       resolve(component)
-    }, 3000)
+    }, 5000)
   });
   const P = useLazyLoading(fakeImport, <Loading />)
-  return <>
+  return <BlockContainer>
     {P}
-  </>;
+  </BlockContainer>;
 }
 
 const SimpleGameControllerSample: HookSample = ({ hook }) => {

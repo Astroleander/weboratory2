@@ -1,0 +1,21 @@
+@block-shadow-light:#66666611;
+@block-shadow-deep: #44444411;
+
+.placeholder {
+  &-line{
+    height: 10px;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    background: repeating-linear-gradient(135deg, @block-shadow-light 0,@block-shadow-light 1px, @block-shadow-deep 1px, @block-shadow-deep 3px);
+  }
+
+  &-block{
+    overflow: hidden;
+    padding: 35px 10px 10px 10px;
+    border-radius: 2px;
+    background-color:@block-shadow-deep;
+    background-image: repeating-linear-gradient(45deg, @block-shadow-light 0, @block-shadow-light 2px, transparent 2px, transparent 4px),
+    repeating-linear-gradient(135deg, @block-shadow-light 0, @block-shadow-light 2px, transparent 2px, transparent 4px),
+  }
+
+}
