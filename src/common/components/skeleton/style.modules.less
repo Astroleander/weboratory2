@@ -1,12 +1,16 @@
 @block-shadow-light:#66666611;
 @block-shadow-deep: #44444411;
-
+@line-shadow: #999a;
 .placeholder {
   &-line{
     height: 10px;
+    margin-top: 1px;
     margin-bottom: 5px;
-    border-radius: 2px;
-    background: repeating-linear-gradient(135deg, @block-shadow-light 0,@block-shadow-light 1px, @block-shadow-deep 1px, @block-shadow-deep 3px);
+    border-radius: 4px;
+    background: repeating-linear-gradient(135deg, @line-shadow 0,@line-shadow 1px, @block-shadow-deep 1px, @block-shadow-deep 3px);
+    &:last-child {
+      width: 60%;
+    }
   }
 
   &-block{
@@ -18,4 +22,11 @@
     repeating-linear-gradient(135deg, @block-shadow-light 0, @block-shadow-light 2px, transparent 2px, transparent 4px),
   }
 
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 }

@@ -8,6 +8,7 @@ import { useHashRouter } from '@/common/hooks/useRouter';
 import { useErrorBoundary } from '@/common/hooks/useCrudeErrorBoundary';
 import { Block } from '@/common/components/skeleton/Block';
 import { Container as BlockContainer } from '@/common/components/skeleton/Container';
+import { Lines } from '@/common/components/skeleton/Lines';
 
 type HookSample = ({ hook }: { hook?: Function }) => React.ReactElement
 
@@ -18,7 +19,7 @@ const ErrorBoundarySample: HookSample = () => {
 
   let SubComponent = ({ isThrow }) => {
     if (isThrow) { throw new SyntaxError('[boundary] This Component Throw a SyntaxError'); }
-    return <Block>Normal Component in ErrorBoundary</Block>
+    return <Block>Normal Component in ErrorBoundary<Lines count={5}/></Block>
   };
 
   return <>

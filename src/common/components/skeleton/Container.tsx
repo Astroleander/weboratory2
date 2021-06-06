@@ -1,6 +1,6 @@
 import React from 'react'
 
-import styles from './container.modules.less';
+import styles from './style.modules.less';
 
 export const Container: React.FC<{ children?, height? }> = ({
   height = '200px',

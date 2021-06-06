@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './block.modules.less';
+import styles from './style.modules.less';
 
 interface ComponentSettings {
   height?: number | string;
